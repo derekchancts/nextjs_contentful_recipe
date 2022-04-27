@@ -35,6 +35,7 @@ export const getStaticProps = async() => {
   });
   // console.log(res)
 
+
   return {
     props: {
       recipes: res.items

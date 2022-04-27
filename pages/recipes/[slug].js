@@ -88,6 +88,18 @@ export const getStaticProps = async (context) => {
     'fields.slug': context.params.slug
   })
 
+
+  // if we cannot find the item / slug
+  if (!res.items.length) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false  // we might have the slug in the future. So, set permanent redirect to false here 
+      }
+    }
+  };
+
+
   return {
     props: { 
       recipe: res.items[0] 
