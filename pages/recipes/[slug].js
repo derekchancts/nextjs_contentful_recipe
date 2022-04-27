@@ -2,10 +2,16 @@ import { createClient } from 'contentful'
 import Image from 'next/image'
 import styles from '../../styles/slug.module.css'
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import Skeleton from '../../components/Skeleton';
 
 
 export default function RecipeDetails({ recipe }) {
-  console.log(recipe)
+   // after we set the fallback to true, it will use the getStaticPaths and try to generate a "temp" page until
+  // the new page / data is fetched and generated. 
+  // if (!recipe) return <div>Loading...</div>
+  if (!recipe) return <Skeleton />
+
+  // console.log(recipe)
   const { featuredImage, title, cookingTime, ingredients, method } = recipe.fields
   // console.log(method)
 
@@ -69,7 +75,8 @@ export const getStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false
+    //fallback: false  // if fallback is set to false, then we will get the 404 page
+    fallback: true
   }
 };
 
